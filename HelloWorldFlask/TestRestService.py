@@ -33,6 +33,6 @@ class User(db.Model):
         self.comment = comment
 
     def __repr__(self):
-        return json.dumps(self)
+        return self.username
         #return jsonify(self)
     
