@@ -4,7 +4,7 @@ Created on 03.09.2017
 @author: josch
 '''
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, json
 
 from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
@@ -16,7 +16,8 @@ db = SQLAlchemy(app)
 
 @app.route("/testrestservice", methods=['GET'])
 def get_users():
-        return User.query.all()
+        firstuser = User.query.all().first()
+        return jsonify(firstuser)
 
 
 class User(db.Model):
@@ -31,5 +32,6 @@ class User(db.Model):
         self.comment = comment
 
     def __repr__(self):
-        return jsonify(self)
+        return json.dumps(self)
+        #return jsonify(self)
     
