@@ -4,7 +4,7 @@ Created on 03.09.2017
 @author: josch
 '''
 
-from flask import Flask
+from flask import Flask, jsonify
 
 from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
@@ -13,15 +13,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://wutuser:test@localhost/
 
 db = SQLAlchemy(app)
 
-@app.route("/wut4lunch")
-def hello():
-        db.create_all()
-        admin = User('admin', 'admin@example.com', "Kommentar")
-        user1 = User('user1', 'user1@example.com', "Erster User")
-        db.session.add(admin)
-        db.session.add(user1)
-        db.session.commit()
-        return "Finished!"
+
+@app.route("/testrestservice", methods=['GET'])
+def get_users():
+        return User.query.all()
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -35,4 +31,5 @@ class User(db.Model):
         self.comment = comment
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return jsonify(self)
+    
