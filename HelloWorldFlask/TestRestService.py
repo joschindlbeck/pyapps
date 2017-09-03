@@ -18,7 +18,7 @@ db = SQLAlchemy(app)
 def get_users():
         userlist = User.query.all()
         strUserlist = str(userlist)
-        return jsonify(strUserlist)
+        return strUserlist
 
 
 class User(db.Model):
