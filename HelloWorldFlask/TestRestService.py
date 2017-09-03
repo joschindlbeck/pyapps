@@ -16,8 +16,9 @@ db = SQLAlchemy(app)
 
 @app.route("/testrestservice", methods=['GET'])
 def get_users():
-        firstuser = User.query.all().first()
-        return jsonify(firstuser)
+        userlist = User.query.all()
+        strUserlist = str(userlist)
+        return jsonify(strUserlist)
 
 
 class User(db.Model):
